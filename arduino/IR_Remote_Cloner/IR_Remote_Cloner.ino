@@ -10,6 +10,8 @@
 #include <IRrecv.h>
 #include <IRutils.h>
 
+#include "html.h"
+
 #ifdef ARDUINO_ESP32C3_DEV
 const uint16_t kRecvPin = 10;  // 14 on a ESP32-C3 causes a boot loop.
 #else                          // ARDUINO_ESP32C3_DEV
@@ -184,7 +186,7 @@ void setup() {
 
 
   webServer.onNotFound([]() {
-    webServer.send(200, "text/html", responseHTML);
+    webServer.send(200, "text/html", INDEX_HTML);
   });
 
   webServer.begin();

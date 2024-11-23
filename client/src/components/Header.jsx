@@ -26,7 +26,6 @@ const Header = () => {
                     setDebug(!debug);
                 }}
             >
-                <span className="text-xl pb-[0.1rem]">😡</span>
                 <h3 className="text-xl font-bold uppercase tracking-wider">
                     <span className="text-orange-500">ANGRY </span>Remote
                 </h3>
@@ -35,12 +34,67 @@ const Header = () => {
             <div className="right">
                 <div onClick={handleStatusClick} className="status flex items-center gap-2 bg-slate-800 p-1 rounded-lg pr-2">
                     <div className="indicator w-10 rounded-lg aspect-square bg-slate-900 flex items-center justify-center">
-                        {socketState === 'Connected' && '😡'}
-                        {socketState === 'Disconnected' && '😕'}
-                        {socketState === "Connecting.." && "😈"}
+                        {socketState === "Connected" && (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="lucide lucide-angry"
+                            >
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+                                <path d="M7.5 8 10 9" />
+                                <path d="m14 9 2.5-1" />
+                                <path d="M9 10h.01" />
+                                <path d="M15 10h.01" />
+                            </svg>
+                        )}
+                        {socketState === "Disconnected" && (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="lucide lucide-frown"
+                            >
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+                                <line x1="9" x2="9.01" y1="9" y2="9" />
+                                <line x1="15" x2="15.01" y1="9" y2="9" />
+                            </svg>
+                        )}
+                        {socketState === "Connecting.." && (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="lucide lucide-ellipsis"
+                            >
+                                <circle cx="12" cy="12" r="1" />
+                                <circle cx="19" cy="12" r="1" />
+                                <circle cx="5" cy="12" r="1" />
+                            </svg>
+                        )}
                     </div>
                     <div className="status-text text-slate-400">
-                        <p className={`text-${socketState === 'Connected'? 'green':'slate'}-400`}>{socketState}</p>
+                        <p className={`text-${socketState === "Connected" ? "green" : "slate"}-400`}>{socketState}</p>
                     </div>
                 </div>
             </div>
