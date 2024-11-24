@@ -42,12 +42,25 @@ decode_results results;
 ESP8266WebServer webServer(PORT);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
-String responseHTML = ""
-                      "<!DOCTYPE html><html lang='en'><head>"
-                      "<meta name='viewport' content='width=device-width'>"
-                      "<title>CaptivePortal</title></head><body>"
-                      "<h1>Hello World!</h1><p>This is a captive portal example."
-                      " All requests will be redirected here.</p></body></html>";
+const char redirect[] PROGMEM = R"rawliteral(
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Opening in New Tab...</title>
+  <script>
+    // Open in a new tab
+    window.onload = function() {
+      window.open('http://172.217.28.1/remote-cloner', '_blank');
+    };
+  </script>
+</head>
+<body>
+  <p>Opening <a href='http://172.217.28.1/remote-cloner'>http://172.217.28.1/remote-cloner</a> in a new tab...</p>
+</body>
+</html>
+)rawliteral";
 
 
 void initIRReceive() {
@@ -186,8 +199,12 @@ void setup() {
 
 
   webServer.onNotFound([]() {
-    webServer.send(200, "text/html", INDEX_HTML);
+    webServer.send(200, "text/html", index_html);
   });
+  webServer.on("/remote-cloner", HTTP_GET, []() {
+    webServer.send(200, "text/html", index_html);
+  });
+
 
   webServer.begin();
 
