@@ -179,6 +179,9 @@ void receiveIR() {
 
 
 void setup() {
+  pinMode(BUILTIN_LED, OUTPUT); 
+  digitalWrite(BUILTIN_LED, LOW); 
+  delay(1000);
   Serial.begin(115200);
 
   delay(100);
